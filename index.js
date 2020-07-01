@@ -5,34 +5,32 @@ const listElement = document.getElementById("list");
 const addButtonElement = document.getElementById("addButton");
 
 addButtonElement.addEventListener("click", function () {
+  addItemToList();
+});
+
+inputFieldElement.addEventListener("keypress", function (e) {
+  if (e.key == "Enter") {
+    addItemToList();
+  }
+});
+
+function addItemToList() {
+  console.log("enter pressed");
   const todoValue = inputFieldElement.value;
 
-  const newListItem = document.createElement("li");
-  newListItem.innerText = todoValue;
+  const newListItemElement = document.createElement("li");
+  newListItemElement.innerText = todoValue;
+  newListItemElement.classList.add("item");
+  newListItemElement.addEventListener("click", function (e) {
+    const currentListElement = e.target;
+    currentListElement.classList.add("complete");
+  });
 
-  listElement.appendChild(newListItem);
+  listElement.appendChild(newListItemElement);
 
   inputFieldElement.value = "";
 
   inputFieldElement.focus();
 
   console.log(`To Do Item Added to List ${todoValue}`);
-});
-
-inputFieldElement.addEventListener("keypress", function (e) {
-  if (e.key == "Enter") {
-    console.log("enter pressed");
-    const todoValue = inputFieldElement.value;
-
-    const newListItem = document.createElement("li");
-    newListItem.innerText = todoValue;
-
-    listElement.appendChild(newListItem);
-
-    inputFieldElement.value = "";
-
-    inputFieldElement.focus();
-
-    console.log(`To Do Item Added to List ${todoValue}`);
-  }
-});
+}
